@@ -12,30 +12,21 @@ static int twod_to_oned(int i, int j) {
 
 typedef struct qdata {
   int i, j;
-  bool used[BOGGLE_MAX_1D_IDX];
+  std::map<int, bool> used;
   std::string word;
 
-  qdata(int i_, int j_, std::string w, const bool u[BOGGLE_ROWS * BOGGLE_COLS]) {
-    i = i_; j = j_; word = w;
-    for(int ii = 0; ii < BOGGLE_MAX_1D_IDX; ii++) {
-      used[ii] = u[ii];
-    }
+  qdata(int i_, int j_, std::string w, const std::map<int, bool> &u) {
+    i = i_; j = j_; word = w; used = u;
     used[twod_to_oned(i, j)] = true;
   }
 
   qdata(int i_, int j_, std::string w) {
     i = i_; j = j_; word = w;
-    for(int ii = 0; ii < BOGGLE_MAX_1D_IDX; ii++) {
-      used[ii] = false;
-    }
     used[twod_to_oned(i, j)] = true;
   } 
 
   qdata() {
     i = -1; j = -1; word = "";
-    for(int ii = 0; ii < BOGGLE_MAX_1D_IDX; ii++) {
-      used[ii] = false;
-    }
   }
 } qdata;
 
@@ -44,7 +35,7 @@ static inline void queue_insert(int i, int j, const std::string &top_word,
                                 const qdata &top,
                                 const std::vector<std::vector<std::string> > &board) {
 
-  if(false == top.used[twod_to_oned(i, j)]) {
+  if(top.used.end() == top.used.find(twod_to_oned(i, j))) {
     queue.push_back(qdata(i, j, top_word + board.at(i).at(j), top.used));
   }
 }
