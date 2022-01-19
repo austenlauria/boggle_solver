@@ -42,7 +42,7 @@ typedef struct qdata {
 static inline void queue_insert(int i, int j, const std::string &top_word,
                                 std::vector<qdata> &queue,
                                 const qdata &top,
-                                const std::vector<std::vector<std::string> >& board) {
+                                const std::vector<std::vector<std::string> > &board) {
 
   if(false == top.used[twod_to_oned(i, j)]) {
     queue.push_back(qdata(i, j, top_word + board.at(i).at(j), top.used));

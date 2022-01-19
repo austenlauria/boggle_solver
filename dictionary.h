@@ -18,7 +18,7 @@ class Dictionary {
       }
 
       int len = word.length();
-      for(auto it : dict_) {
+      for(const auto &it : dict_) {
         std::string sub = it.first.substr(0, len);
 
         // Found prefix
@@ -48,7 +48,7 @@ class Dictionary {
     }
 
     void Print() const {
-      for(auto it : dict_) {
+      for(const auto &it : dict_) {
         std::cout << it.first << std::endl;
       }
     }
