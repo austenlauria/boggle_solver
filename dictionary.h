@@ -45,6 +45,7 @@ class Dictionary {
         std::cout << "Failed to open file: " << file << std::endl;
         assert(0);
       }
+      myfile.close();
     }
 
     void Print() const {
